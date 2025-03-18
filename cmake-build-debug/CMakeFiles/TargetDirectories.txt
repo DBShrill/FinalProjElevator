@@ -1,0 +1,3 @@
+/Users/squishy/Desktop/EECS183/Projects/FinalProjElevator/cmake-build-debug/CMakeFiles/FinalProjElevator.dir
+/Users/squishy/Desktop/EECS183/Projects/FinalProjElevator/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/squishy/Desktop/EECS183/Projects/FinalProjElevator/cmake-build-debug/CMakeFiles/rebuild_cache.dir

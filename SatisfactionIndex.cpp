@@ -91,7 +91,7 @@ void SatisfactionIndex::printSatisfaction(ostream& outs, const bool isCSV) const
         
     } else {
         
-        outs << "test,sumIndex,sumUpRequest,sumDownRequest,sumExploded,"
+        outs << "test,sumIndex,sumUpRequest,sumDownRequest,sumExploded,";
         outs << "sumIdle,timeReached" << endl;
         outs << "student,";
         outs << sumIndex << ',';

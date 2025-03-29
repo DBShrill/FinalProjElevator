@@ -15,7 +15,7 @@
 using namespace std;
 
 void Building::spawnPerson(Person newPerson){
-    //TODO: Implement spawnPerson
+    newPerson.;
 }
 
 void Building::update(Move move){

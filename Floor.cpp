@@ -27,8 +27,17 @@ int Floor::tick(int currentTime) {
 void Floor::addPerson(Person newPerson, int request) {
     if (numPeople < MAX_PEOPLE_PER_FLOOR) {
 	    people[numPeople] = newPerson;
+
+    	if (request > newPerson.getCurrentFloor()) {
+    		hasUpRequest = true;
+    		hasDownRequest = false;
+    	}
+    	else if (request < newPerson.getCurrentFloor()) {
+    		hasUpRequest = false;
+    		hasDownRequest = true;
+    	}
     }
-	//TODO: figure out request stuff
+
 }
 
 void Floor::removePeople(const int indicesToRemove[MAX_PEOPLE_PER_FLOOR],

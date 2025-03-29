@@ -29,7 +29,7 @@ bool Person::tick(int currentTime) {
         angerLevel++;
     }
 
-    if (angerLevel == 10) {
+    if (angerLevel == MAX_ANGER - 1) {
         return true;
     }
     return false;

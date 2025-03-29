@@ -16,14 +16,19 @@
 using namespace std;
 
 int Floor::tick(int currentTime) {
-    //TODO: Implement tick
+    for (int i = 0; i < numPeople; i++) {
+	    if (!people[i].tick) {
+		    //TODO:: remove person (could be in middle of array)
 
-    //returning 0 to prevent compilation error
-    return 0;
+	    }
+    }
 }
 
 void Floor::addPerson(Person newPerson, int request) {
-    //TODO: Implement addPerson
+    if (numPeople < MAX_PEOPLE_PER_FLOOR) {
+	    people[numPeople] = newPerson;
+    }
+	//TODO: figure out request stuff
 }
 
 void Floor::removePeople(const int indicesToRemove[MAX_PEOPLE_PER_FLOOR],

@@ -16,12 +16,16 @@
 using namespace std;
 
 int Floor::tick(int currentTime) {
+	int exploded;
     for (int i = 0; i < numPeople; i++) {
-	    if (!people[i].tick) {
-		    //TODO:: remove person (could be in middle of array)
-
+	    if (people[i].tick(currentTime)) {
+	    	exploded++;
+	    	for (int j = numPeople; j > i; j--) {
+	    		people[j] = people[j - 1];
+	    	}
 	    }
     }
+	return exploded;
 }
 
 void Floor::addPerson(Person newPerson, int request) {

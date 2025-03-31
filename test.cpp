@@ -6,7 +6,10 @@
  *
  * Final Project - Elevators
  */
- 
+ //* <#Names#>
+ //* Daniel Bao, Evan Stocker, Spencer Hu, Zihan Li
+ //* <#Uniqnames#>
+ //* danbao, zihanl, zianghu, stockere
 ////////////////////////////////////////////////
 // You will submit test.cpp to the autograder //
 // FOR LAB 8, but NOT the final project Core  //

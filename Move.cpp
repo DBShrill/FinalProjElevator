@@ -4,8 +4,8 @@
  * Move.cpp
  * Project UID 848fee0125dbb5eb53ed294f20dbef81
  *
- * <#Names#>
- * <#Uniqnames#>
+ * <Zihan Li, Spencer Hu, Daniel Bao, Evan Stocker>
+ * <zihanl, danbao, zianghu, stockere>
  *
  * Final Project - Elevators
  */

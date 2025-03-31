@@ -4,8 +4,8 @@
  * Game.cpp
  * Project UID 848fee0125dbb5eb53ed294f20dbef81
  *
- * <#Names#>
- * <#Uniqnames#>
+ * Daniel Bao, Evan Stocker, Spencer Hu, Zihan Li
+ * danbao, zihanl, zianghu, stockere
  *
  * Final Project - Elevators
  */

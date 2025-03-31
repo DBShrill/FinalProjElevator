@@ -4,8 +4,8 @@
  * Floor.cpp
  * Project UID 848fee0125dbb5eb53ed294f20dbef81
  *
- * <#Names#>
- * <#Uniqnames#>
+ * Daniel Bao, Evan Stocker, Spencer Hu, Zihan Li
+ * danbao, zihanl, zianghu, stockere
  *
  * Final Project - Elevators
  */
@@ -18,6 +18,7 @@ using namespace std;
 int Floor::tick(int currentTime) {
 	int exploded;
     for (int i = 0; i < numPeople; i++) {
+    	//
 	    if (people[i].tick(currentTime)) {
 	    	exploded++;
 	    	for (int j = numPeople; j > i; j--) {

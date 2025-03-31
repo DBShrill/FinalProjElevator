@@ -18,6 +18,7 @@ using namespace std;
 int Floor::tick(int currentTime) {
 	int exploded;
     for (int i = 0; i < numPeople; i++) {
+    	//
 	    if (people[i].tick(currentTime)) {
 	    	exploded++;
 	    	for (int j = numPeople; j > i; j--) {

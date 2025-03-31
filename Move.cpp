@@ -26,13 +26,14 @@ Move::Move(string commandString) : Move() {
     isPickup = false;
     isSave = false;
     isQuit = false;
-    numPeopleToPickup = 0;
-    totalSatisfaction = 0;
+   targetFloor = 0;
+   elevatorId = 0;
 
     // Convert command string to lowercase for case-insensitive comparison
-    transform(commandString.begin(), commandString.end(), commandString.begin(), ::tolower);
+    ///////////////////// transform(commandString.begin(), commandString.end(), commandString.begin(), ::tolower);
 
-    if (commandString.empty()) {
+
+    if (commandString ==" ") {
         isPass = true;
         return;
     }
@@ -54,7 +55,8 @@ Move::Move(string commandString) : Move() {
             elevatorId = 0;
             targetFloor = cmd - '0';
             if (targetFloor < 0 || targetFloor > 9) {
-                isPass = true; // Invalid floor, treat as pass
+                isPass = true; 
+                // Invalid floor, treat as pass
             }
         }
         return;

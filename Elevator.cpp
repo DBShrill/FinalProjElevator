@@ -4,7 +4,7 @@
  * Elevator.cpp
  * Project UID 848fee0125dbb5eb53ed294f20dbef81
  *
- * <#Names#>
+ * <Zihan Li>
  * <#Uniqnames#>
  *
  * Final Project - Elevators

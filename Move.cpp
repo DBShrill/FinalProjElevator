@@ -20,6 +20,90 @@ using namespace std;
 
 Move::Move(string commandString) : Move() {
     //TODO: Implement non-default constructor
+
+    // Initialize all boolean flags to false
+    isPass = false;
+    isPickup = false;
+    isSave = false;
+    isQuit = false;
+    numPeopleToPickup = 0;
+    totalSatisfaction = 0;
+
+    // Convert command string to lowercase for case-insensitive comparison
+    transform(commandString.begin(), commandString.end(), commandString.begin(), ::tolower);
+
+    if (commandString.empty()) {
+        isPass = true;
+        return;
+    }
+
+    // Check for single-character commands first
+    if (commandString.length() == 1) {
+        char cmd = commandString[0];
+        if (cmd == 'p') {
+            isPass = true;
+        }
+        else if (cmd == 'q') {
+            isQuit = true;
+        }
+        else if (cmd == 's') {
+            isSave = true;
+        }
+        else if (isdigit(cmd)) {
+            // Single digit means elevator 0 and target floor
+            elevatorId = 0;
+            targetFloor = cmd - '0';
+            if (targetFloor < 0 || targetFloor > 9) {
+                isPass = true; // Invalid floor, treat as pass
+            }
+        }
+        return;
+    }
+
+    // Parse multi-character commands
+    if (commandString.length() >= 3) {
+        // Check for elevator commands (e1f4, e2p, etc.)
+        if (commandString[0] == 'e') {
+            // Get elevator ID (should be 0, 1, or 2)
+            if (isdigit(commandString[1])) {
+                elevatorId = commandString[1] - '0';
+                if (elevatorId < 0 || elevatorId > 2) {
+                    isPass = true; // Invalid elevator, treat as pass
+                    return;
+                }
+
+                // Check the command type
+                char cmdType = commandString[2];
+                if (cmdType == 'f' && commandString.length() >= 4) {
+                    // Move to floor command (e1f4)
+                    if (isdigit(commandString[3])) {
+                        targetFloor = commandString[3] - '0';
+                        if (targetFloor < 0 || targetFloor > 9) {
+                            isPass = true; // Invalid floor, treat as pass
+                        }
+                    } else {
+                        isPass = true; // Invalid format, treat as pass
+                    }
+                }
+                else if (cmdType == 'p') {
+                    // Pickup command (e1p)
+                    isPickup = true;
+                }
+                else {
+                    isPass = true; // Unknown command, treat as pass
+                }
+            } else {
+                isPass = true; // Invalid elevator ID, treat as pass
+            }
+        }
+        else {
+            isPass = true; // Not an elevator command, treat as pass
+        }
+    }
+    else {
+        isPass = true; // Command too short, treat as pass
+    }
+}
 }
 
 bool Move::isValidMove(Elevator elevators[NUM_ELEVATORS]) const {

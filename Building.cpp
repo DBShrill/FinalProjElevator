@@ -17,7 +17,8 @@
 using namespace std;
 
 void Building::spawnPerson(Person newPerson){
-    newPerson.;
+	//adds new person based on their current floor and their target floor
+	floors[newPerson.getCurrentFloor()].addPerson(newPerson, newPerson.getTargetFloor());
 }
 
 void Building::update(Move move){

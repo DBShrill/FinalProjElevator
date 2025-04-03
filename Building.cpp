@@ -27,9 +27,14 @@ void Building::update(Move move){
     }
 	//TODO: figure out how to add people to pickup to list
     else if(move.isPickupMove()){
+    	Person peopleToPickup[10];
+//        for (int i = 0; i < floors[]; i++){
+//
+//        }
 
-    	Person pickupPeople[5];
     }
+
+    //else if (move.is
 }
 
 int Building::tick(Move move){

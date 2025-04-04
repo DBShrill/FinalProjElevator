@@ -49,12 +49,6 @@ cmake_ninja_workdir = /Users/squishy/Desktop/EECS183/Projects/FinalProjElevator/
 
 build cmake_object_order_depends_target_FinalProjElevator: phony || .
 
-build CMakeFiles/FinalProjElevator.dir/AI.cpp.o: CXX_COMPILER__FinalProjElevator_unscanned_Debug /Users/squishy/Desktop/EECS183/Projects/FinalProjElevator/AI.cpp || cmake_object_order_depends_target_FinalProjElevator
-  DEP_FILE = CMakeFiles/FinalProjElevator.dir/AI.cpp.o.d
-  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics
-  OBJECT_DIR = CMakeFiles/FinalProjElevator.dir
-  OBJECT_FILE_DIR = CMakeFiles/FinalProjElevator.dir
-
 build CMakeFiles/FinalProjElevator.dir/Elevator.cpp.o: CXX_COMPILER__FinalProjElevator_unscanned_Debug /Users/squishy/Desktop/EECS183/Projects/FinalProjElevator/Elevator.cpp || cmake_object_order_depends_target_FinalProjElevator
   DEP_FILE = CMakeFiles/FinalProjElevator.dir/Elevator.cpp.o.d
   FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics
@@ -67,26 +61,8 @@ build CMakeFiles/FinalProjElevator.dir/Floor.cpp.o: CXX_COMPILER__FinalProjEleva
   OBJECT_DIR = CMakeFiles/FinalProjElevator.dir
   OBJECT_FILE_DIR = CMakeFiles/FinalProjElevator.dir
 
-build CMakeFiles/FinalProjElevator.dir/Game.cpp.o: CXX_COMPILER__FinalProjElevator_unscanned_Debug /Users/squishy/Desktop/EECS183/Projects/FinalProjElevator/Game.cpp || cmake_object_order_depends_target_FinalProjElevator
-  DEP_FILE = CMakeFiles/FinalProjElevator.dir/Game.cpp.o.d
-  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics
-  OBJECT_DIR = CMakeFiles/FinalProjElevator.dir
-  OBJECT_FILE_DIR = CMakeFiles/FinalProjElevator.dir
-
-build CMakeFiles/FinalProjElevator.dir/Move.cpp.o: CXX_COMPILER__FinalProjElevator_unscanned_Debug /Users/squishy/Desktop/EECS183/Projects/FinalProjElevator/Move.cpp || cmake_object_order_depends_target_FinalProjElevator
-  DEP_FILE = CMakeFiles/FinalProjElevator.dir/Move.cpp.o.d
-  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics
-  OBJECT_DIR = CMakeFiles/FinalProjElevator.dir
-  OBJECT_FILE_DIR = CMakeFiles/FinalProjElevator.dir
-
 build CMakeFiles/FinalProjElevator.dir/Person.cpp.o: CXX_COMPILER__FinalProjElevator_unscanned_Debug /Users/squishy/Desktop/EECS183/Projects/FinalProjElevator/Person.cpp || cmake_object_order_depends_target_FinalProjElevator
   DEP_FILE = CMakeFiles/FinalProjElevator.dir/Person.cpp.o.d
-  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics
-  OBJECT_DIR = CMakeFiles/FinalProjElevator.dir
-  OBJECT_FILE_DIR = CMakeFiles/FinalProjElevator.dir
-
-build CMakeFiles/FinalProjElevator.dir/SatisfactionIndex.cpp.o: CXX_COMPILER__FinalProjElevator_unscanned_Debug /Users/squishy/Desktop/EECS183/Projects/FinalProjElevator/SatisfactionIndex.cpp || cmake_object_order_depends_target_FinalProjElevator
-  DEP_FILE = CMakeFiles/FinalProjElevator.dir/SatisfactionIndex.cpp.o.d
   FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics
   OBJECT_DIR = CMakeFiles/FinalProjElevator.dir
   OBJECT_FILE_DIR = CMakeFiles/FinalProjElevator.dir
@@ -105,7 +81,7 @@ build CMakeFiles/FinalProjElevator.dir/test.cpp.o: CXX_COMPILER__FinalProjElevat
 #############################################
 # Link the executable FinalProjElevator
 
-build FinalProjElevator: CXX_EXECUTABLE_LINKER__FinalProjElevator_Debug CMakeFiles/FinalProjElevator.dir/AI.cpp.o CMakeFiles/FinalProjElevator.dir/Elevator.cpp.o CMakeFiles/FinalProjElevator.dir/Floor.cpp.o CMakeFiles/FinalProjElevator.dir/Game.cpp.o CMakeFiles/FinalProjElevator.dir/Move.cpp.o CMakeFiles/FinalProjElevator.dir/Person.cpp.o CMakeFiles/FinalProjElevator.dir/SatisfactionIndex.cpp.o CMakeFiles/FinalProjElevator.dir/test.cpp.o
+build FinalProjElevator: CXX_EXECUTABLE_LINKER__FinalProjElevator_Debug CMakeFiles/FinalProjElevator.dir/Elevator.cpp.o CMakeFiles/FinalProjElevator.dir/Floor.cpp.o CMakeFiles/FinalProjElevator.dir/Person.cpp.o CMakeFiles/FinalProjElevator.dir/test.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
   OBJECT_DIR = CMakeFiles/FinalProjElevator.dir
   POST_BUILD = :

@@ -31,12 +31,48 @@
 
 using namespace std;
 
+void testFloorAddPerson();
+void start_tests();
+void testFloorRemovePerson();
+
+//temporary main function
+int main() {
+    start_tests();
+}
+
 // declare your test functions here
 
 void start_tests() {
-    // call your test functions here
-    
-    return;
+    testFloorAddPerson();
+    testFloorRemovePerson();
 }
 
-// write test functions here
+void testFloorAddPerson() {
+    Floor floor;
+    Person person("0f1t9a1");
+
+    for (int i = 0; i < MAX_PEOPLE_PER_FLOOR - 1; i++) {
+        floor.addPerson(person, person.getTargetFloor() - person.getCurrentFloor());
+    }
+    cout << "Testing Floor Add Person\n";
+    cout << "Expecting f1t9a1, Actual: " << floor.getPersonByIndex(0) << endl;
+    cout << "Expecting: Up (1), Actual: " << floor.getHasUpRequest() << endl;
+}
+
+void testFloorRemovePerson() {
+    Floor floor;
+    Person person0("0f1t9a1");
+    Person person1("1f0t8a0");
+    Person person2("2f0t9a0");
+    Person person3("3f0t9a1");
+    floor.addPerson(person0, person0.getTargetFloor() - person0.getCurrentFloor());
+    floor.addPerson(person1, person1.getTargetFloor() - person1.getCurrentFloor());
+    floor.addPerson(person2, person2.getTargetFloor() - person2.getCurrentFloor());
+    floor.addPerson(person3, person3.getTargetFloor() - person3.getCurrentFloor());
+
+    int remove[3] = {0,1,2};
+
+    floor.removePeople(remove, 3);
+    cout << "Testing Floor Remove Person\n";
+    cout << "ExpectingL 3f0t9a1, Actual: " << floor.getPersonByIndex(0) << endl;
+}

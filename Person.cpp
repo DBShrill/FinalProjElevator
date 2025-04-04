@@ -17,8 +17,6 @@
 
 using namespace std;
 
-int TICKS_PER_ANGER_INCREASE = 5;
-
 Person::Person(string inputString) : Person() {
     turn = inputString.at(0) - '0';
     currentFloor = inputString.at(2) - '0';

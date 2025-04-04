@@ -31,15 +31,15 @@ Move::Move(string commandString) : Move() {
 
    
    
-string lower_commandString = '';
+string lower_commandString = "";
 // initialized a new empty string for recode lowerchar string.
 
      for (int i=0 ; i < commandString.length(); i++){
-        if (isalpha(commandString.at[i])){
-            lower_commandString += tolower(commandString.at[i]);
+        if (isalpha(commandString.at(i))){
+            lower_commandString += tolower(commandString.at(i));
         }
         else {
-            lower_commandString += commandString.at[i];
+            lower_commandString += commandString.at(i);
         }
 
 }

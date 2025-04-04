@@ -21,6 +21,8 @@ int Floor::tick(int currentTime) {
     	//
 	    if (people[i].tick(currentTime)) {
 	    	exploded++;
+			//TODO keep track of index where explode
+			//TODO remove said people
 	    	for (int j = numPeople; j > i; j--) {
 	    		people[j] = people[j - 1];
 	    	}
@@ -32,7 +34,6 @@ int Floor::tick(int currentTime) {
 void Floor::addPerson(Person newPerson, int request) {
     if (numPeople < MAX_PEOPLE_PER_FLOOR) {
 	    people[numPeople] = newPerson;
-
     	if (request > 0) {
     		hasUpRequest = true;
     		hasDownRequest = false;
@@ -41,6 +42,7 @@ void Floor::addPerson(Person newPerson, int request) {
     		hasUpRequest = false;
     		hasDownRequest = true;
     	}
+		numPeople++;
     }
 
 }

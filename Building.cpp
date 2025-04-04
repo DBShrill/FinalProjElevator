@@ -17,11 +17,24 @@
 using namespace std;
 
 void Building::spawnPerson(Person newPerson){
-    newPerson.;
+	//adds new person based on their current floor and their target floor
+	floors[newPerson.getCurrentFloor()].addPerson(newPerson, newPerson.getTargetFloor());
 }
 
 void Building::update(Move move){
-    //TODO: Implement update
+    if (move.isPassMove()){
+    	return;
+    }
+	//TODO: figure out how to add people to pickup to list
+    else if(move.isPickupMove()){
+    	Person peopleToPickup[10];
+//        for (int i = 0; i < floors[]; i++){
+//
+//        }
+
+    }
+
+    //else if (move.is
 }
 
 int Building::tick(Move move){

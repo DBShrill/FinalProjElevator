@@ -33,11 +33,11 @@ void Floor::addPerson(Person newPerson, int request) {
     if (numPeople < MAX_PEOPLE_PER_FLOOR) {
 	    people[numPeople] = newPerson;
 
-    	if (request > newPerson.getCurrentFloor()) {
+    	if (request > 0) {
     		hasUpRequest = true;
     		hasDownRequest = false;
     	}
-    	else if (request < newPerson.getCurrentFloor()) {
+    	else if (request < 0) {
     		hasUpRequest = false;
     		hasDownRequest = true;
     	}
@@ -47,11 +47,36 @@ void Floor::addPerson(Person newPerson, int request) {
 
 void Floor::removePeople(const int indicesToRemove[MAX_PEOPLE_PER_FLOOR],
                          int numPeopleToRemove) {
-    //TODO: Implement removePeople
+	numPeople -= numPeopleToRemove;
+    for (int i = 0; i < numPeopleToRemove; i++) {
+    	//TODO: check if there is a person default constructor
+    	//resets the person at the indicated index
+	    people[indicesToRemove[i]] = Person();
+
+    	for (int j = indicesToRemove[i]; j < MAX_PEOPLE_PER_FLOOR - 1; j++) {
+    		people[j] = people[j + 1];
+    		people[MAX_PEOPLE_PER_FLOOR - 1] = Person();
+    	}
+    }
+	resetRequests();
+
 }
 
 void Floor::resetRequests() {
-    //TODO: Implement resetRequests
+	hasDownRequest = false;
+	hasUpRequest = false;
+	//iterates through people
+    for (int i = 0; i < numPeople; i++) {
+    	//checks if going up
+	    if (people[i].getCurrentFloor() < people[i].getTargetFloor()) {
+		    hasUpRequest = true;
+	    }
+
+    	//checks if going down
+    	else if (people[i].getCurrentFloor() > people[i].getTargetFloor()) {
+    		hasDownRequest = true;
+    	}
+    }
 }
 
 //////////////////////////////////////////////////////

@@ -18,23 +18,22 @@ using namespace std;
 int Floor::tick(int currentTime) {
 	int exploded;
 	int indicesToRemove[MAX_PEOPLE_PER_FLOOR];
-	int removalCount = 0;
+	int numPeopleToRemove = 0;
     for (int i = 0; i < numPeople; i++) {
-    	//
 	    if (people[i].tick(currentTime)) {
-			indicesToRemove[removalCount] = i;
-			removalCount++;
+			indicesToRemove[numPeopleToRemove] = i;
+			numPeopleToRemove++;
 	    	exploded++;
-
 			//TODO Reimplement given new remove call
-	    	for (int j = numPeople; j > i; j--) {
+	    	/*for (int j = numPeople; j > i; j--) {
 	    		people[j] = people[j - 1];
 	    	}
 			// up until here ^
+			*/
 	    }
     }
-	if (removalCount > 0) {
-		removePeople(indicesToRemove, removalCount);
+	if (numPeopleToRemove > 0) {
+		removePeople(indicesToRemove, numPeopleToRemove);
 	}
 	return exploded;
 }
@@ -57,7 +56,7 @@ void Floor::addPerson(Person newPerson, int request) {
 
 void Floor::removePeople(const int indicesToRemove[MAX_PEOPLE_PER_FLOOR],
                          int numPeopleToRemove) {
-	numPeople -= numPeopleToRemove;
+	/*numPeople -= numPeopleToRemove;
     for (int i = 0; i < numPeopleToRemove; i++) {
     	//TODO: check if there is a person default constructor
     	//resets the person at the indicated index
@@ -69,7 +68,25 @@ void Floor::removePeople(const int indicesToRemove[MAX_PEOPLE_PER_FLOOR],
     	}
     }
 	resetRequests();
+	*/
 
+	int targetsToRemove[MAX_PEOPLE_PER_FLOOR] = {};
+
+	for (int i = 0; i < numPeopleToRemove; i++) {
+		targetsToRemove[i] = indicesToRemove[i];
+	}
+
+	sort(targetsToRemove, targetsToRemove + numPeopleToRemove);
+
+	for (int i = numPeopleToRemove - 1; i >= 0; i--) {
+		int removeIndex = targetsToRemove[i];
+
+		for (int j = removeIndex; j < numPeople - 1; j++ ) {
+			people[j] = people[j+1];
+		}
+		numPeople--;
+	}
+	resetRequests();
 }
 
 void Floor::resetRequests() {

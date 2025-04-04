@@ -17,6 +17,8 @@
 
 using namespace std;
 
+int TICKS_PER_ANGER_INCREASE = 5;
+
 Person::Person(string inputString) : Person() {
     turn = inputString.at(0) - '0';
     currentFloor = inputString.at(2) - '0';
@@ -25,7 +27,7 @@ Person::Person(string inputString) : Person() {
 }
 
 bool Person::tick(int currentTime) {
-    if (currentTime % 5 == 0) {
+    if (currentTime % TICKS_PER_ANGER_INCREASE == 0) {
         angerLevel++;
     }
 

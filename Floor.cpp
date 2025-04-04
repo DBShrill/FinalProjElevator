@@ -17,17 +17,25 @@ using namespace std;
 
 int Floor::tick(int currentTime) {
 	int exploded;
+	int indicesToRemove[MAX_PEOPLE_PER_FLOOR];
+	int removalCount = 0;
     for (int i = 0; i < numPeople; i++) {
     	//
 	    if (people[i].tick(currentTime)) {
+			indicesToRemove[removalCount] = i;
+			removalCount++;
 	    	exploded++;
-			//TODO keep track of index where explode
-			//TODO remove said people
+
+			//TODO Reimplement given new remove call
 	    	for (int j = numPeople; j > i; j--) {
 	    		people[j] = people[j - 1];
 	    	}
+			// up until here ^
 	    }
     }
+	if (removalCount > 0) {
+		removePeople(indicesToRemove, removalCount);
+	}
 	return exploded;
 }
 

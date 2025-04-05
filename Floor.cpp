@@ -56,32 +56,22 @@ void Floor::addPerson(Person newPerson, int request) {
 
 void Floor::removePeople(const int indicesToRemove[MAX_PEOPLE_PER_FLOOR],
                          int numPeopleToRemove) {
-	/*numPeople -= numPeopleToRemove;
-    for (int i = 0; i < numPeopleToRemove; i++) {
-    	//TODO: check if there is a person default constructor
-    	//resets the person at the indicated index
-	    people[indicesToRemove[i]] = Person();
-
-    	for (int j = indicesToRemove[i]; j < MAX_PEOPLE_PER_FLOOR - 1; j++) {
-    		people[j] = people[j + 1];
-    		people[MAX_PEOPLE_PER_FLOOR - 1] = Person();
-    	}
-    }
-	resetRequests();
-	*/
-
 	int targetsToRemove[MAX_PEOPLE_PER_FLOOR] = {};
 
+	//transferring indicesToRemove to a new array
 	for (int i = 0; i < numPeopleToRemove; i++) {
 		targetsToRemove[i] = indicesToRemove[i];
 	}
 
 	sort(targetsToRemove, targetsToRemove + numPeopleToRemove);
 
+	//starts from end of people list and iterates backwards
 	for (int i = numPeopleToRemove - 1; i >= 0; i--) {
 		int removeIndex = targetsToRemove[i];
 
+		//iterates from target to end
 		for (int j = removeIndex; j < numPeople - 1; j++ ) {
+			//"shifts" index+1 to index
 			people[j] = people[j+1];
 		}
 		numPeople--;

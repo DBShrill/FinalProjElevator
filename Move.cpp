@@ -164,17 +164,18 @@ void Move::setPeopleToPickup(const string& pickupList, const int currentFloor,
 
     for (int i = 0; i < pickupList.length(); i++){
         int tempMaxFloorDif = 0;
-        pickupList.at(i) = peopleToPickup[i];
-        totalSatisfaction += MAX_ANGER - peopleToPickup.getPersonByIndex(i).getAngerLevel();
+        peopleToPickup[i] = static_cast<int>(pickupList.at(i) - '0');
+        totalSatisfaction += MAX_ANGER - pickupFloor.getPersonByIndex(i).getAngerLevel();
         numPeopleToPickup++;
     }
 
     for (int i = 0; i < numPeopleToPickup; i++) {
         int tempMaxFloorDif = 0;
-        tempMaxFloorDif = abs(peopleToPickup[i].getPersonByIndex(i).getTargetFloor - peopleToPickup[i].getAngerLevel());
+        tempMaxFloorDif = abs(pickupFloor.getPersonByIndex(i).getTargetFloor() -
+                                pickupFloor.getPersonByIndex(i).getCurrentFloor());
         if (tempMaxFloorDif > maxFloorDif) {
             maxFloorDif = tempMaxFloorDif;
-            targetFloor = peopleToPickup[i].getTargetFloor();
+            targetFloor = pickupFloor.getPersonByIndex(i).getTargetFloor();
         }
     }
 }

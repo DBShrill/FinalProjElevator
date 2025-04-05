@@ -18,10 +18,15 @@
 using namespace std;
 
 Person::Person(string inputString) : Person() {
-    turn = inputString.at(0) - '0';
-    currentFloor = inputString.at(2) - '0';
-    targetFloor = inputString.at(4) - '0';
-    angerLevel = inputString.at(6) - '0';
+    stringstream ss(inputString);
+    char junk;
+
+//     turn = inputString.at(0) - '0';
+//     currentFloor = inputString.at(2) - '0';
+//     targetFloor = inputString.at(4) - '0';
+//     angerLevel = inputString.at(6) - '0';
+    ss >> turn >> junk >> currentFloor >> junk >> targetFloor >> junk >> angerLevel;
+
 }
 
 bool Person::tick(int currentTime) {
@@ -29,7 +34,7 @@ bool Person::tick(int currentTime) {
         angerLevel++;
     }
 
-    if (angerLevel == MAX_ANGER - 1) {
+    if (angerLevel == MAX_ANGER) {
         return true;
     }
     return false;

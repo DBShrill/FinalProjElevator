@@ -7,4 +7,5 @@ add_executable(FinalProjElevator
 Elevator.cpp
 Floor.cpp
 Person.cpp
-test.cpp)
+test.cpp
+Move.cpp)

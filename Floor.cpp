@@ -10,13 +10,13 @@
  * Final Project - Elevators
  */
 
-
+#include <algorithm>
 #include "Floor.h"
 
 using namespace std;
 
 int Floor::tick(int currentTime) {
-	int exploded;
+	int exploded = 0;
 	int indicesToRemove[MAX_PEOPLE_PER_FLOOR];
 	int numPeopleToRemove = 0;
     for (int i = 0; i < numPeople; i++) {

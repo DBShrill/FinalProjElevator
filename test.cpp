@@ -58,7 +58,7 @@ void testFloorAddPerson() {
     for (int i = 0; i < MAX_PEOPLE_PER_FLOOR - 1; i++) {
         floor.addPerson(person, person.getTargetFloor() - person.getCurrentFloor());
     }
-    cout << "Testing Floor Add Person\n";
+    cout << "// Testing Floor Add Person\n";
     cout << "Expecting f1t9a1, Actual: " << floor.getPersonByIndex(0) << endl;
     cout << "Expecting: Up (1), Actual: " << floor.getHasUpRequest() << endl;
 }
@@ -77,12 +77,12 @@ void testFloorRemovePerson() {
     int remove[3] = {0,1,2};
 
     floor.removePeople(remove, 3);
-    cout << "Testing Floor Remove Person\n";
+    cout << "// Testing Floor Remove Person\n";
     cout << "ExpectingL 3f0t9a1, Actual: " << floor.getPersonByIndex(0) << endl;
 }
 
 void testPerson() {
-    cout << "Testing Person class\n";
+    cout << "// Testing Person class\n";
 
     // Test constructor and getters
     Person p("7f4t8a3");
@@ -92,12 +92,12 @@ void testPerson() {
     cout << "Expecting angerLevel: 3, Actual: " << p.getAngerLevel() << endl;
 
     // Test tick - not increasing anger if not on tick interval
-    cout << "Testing tick at time 1 (no anger increase expected)" << endl;
+    cout << "// Testing tick at time 1 (no anger increase expected)" << endl;
     p.tick(1);
     cout << "Expecting angerLevel: 3, Actual: " << p.getAngerLevel() << endl;
 
     // Test tick - increase anger at TICKS_PER_ANGER_INCREASE
-    cout << "Testing tick at time 5 (anger should increase by 1)" << endl;
+    cout << "// Testing tick at time 5 (anger should increase by 1)" << endl;
     bool result = p.tick(5);
     cout << "Expecting angerLevel: 4, Actual: " << p.getAngerLevel() << endl;
     cout << "Expecting result: false, Actual: " << result << endl;
@@ -106,23 +106,23 @@ void testPerson() {
     while (p.getAngerLevel() < MAX_ANGER - 1) {
         result = p.tick(p.getAngerLevel() * TICKS_PER_ANGER_INCREASE);
     }
-    cout << "Testing tick when reaching MAX_ANGER - 1" << endl;
+    cout << "// Testing tick when reaching MAX_ANGER - 1" << endl;
     cout << "Expecting angerLevel: " << MAX_ANGER - 1 << ", Actual: " << p.getAngerLevel() << endl;
     cout << "Expecting result: true, Actual: " << result << endl;
 
     // Test print
-    cout << "Testing print\n";
+    cout << "// Testing print\n";
     cout << "Expecting: f4t8a" << p.getAngerLevel() << ", Actual: ";
     p.print(cout);
     cout << endl;
 
     // Test operator<< overload
-    cout << "Testing << operator overload\n";
+    cout << "// Testing << operator overload\n";
     cout << "Expecting: f4t8a" << p.getAngerLevel() << ", Actual: " << p << endl;
 }
 
 void testElevator() {
-    cout << "Testing Elevator class\n";
+    cout << "// Testing Elevator class\n";
 
     Elevator e;
 
@@ -154,7 +154,7 @@ void testElevator() {
     cout << "Expecting isServicing: 0, Actual: " << e.isServicing() << endl;
 
     // Test print
-    cout << "Testing print()\n";
+    cout << "// Testing print()\n";
     cout << "Expecting: 2w, Actual: ";
     e.print(cout);
     cout << endl;

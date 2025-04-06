@@ -24,12 +24,6 @@ int Floor::tick(int currentTime) {
 			indicesToRemove[numPeopleToRemove] = i;
 			numPeopleToRemove++;
 	    	exploded++;
-			//TODO Reimplement given new remove call
-	    	/*for (int j = numPeople; j > i; j--) {
-	    		people[j] = people[j - 1];
-	    	}
-			// up until here ^
-			*/
 	    }
     }
 	if (numPeopleToRemove > 0) {

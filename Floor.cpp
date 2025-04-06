@@ -43,10 +43,8 @@ void Floor::addPerson(Person newPerson, int request) {
 	    people[numPeople] = newPerson;
     	if (request > 0) {
     		hasUpRequest = true;
-    		hasDownRequest = false;
     	}
     	else if (request < 0) {
-    		hasUpRequest = false;
     		hasDownRequest = true;
     	}
 		numPeople++;

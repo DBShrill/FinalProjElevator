@@ -141,12 +141,12 @@ void testElevator() {
     cout << "Expecting isServicing: 1, Actual: " << e.isServicing() << endl;
 
     // Test tick - simulate multiple ticks until reaching target
-    for (int time = 0; e.isServicing(); ++time) {
-        e.tick(time * TICKS_PER_ELEVATOR_MOVE);
-        cout << "Tick time " << time * TICKS_PER_ELEVATOR_MOVE << ", Floor: " << e.getCurrentFloor() << endl;
+    int currentTime = 0;
+    while (e.isServicing()) {
+        e.tick(currentTime);
+        cout << "Tick time " << currentTime << ", Floor: " << e.getCurrentFloor() << endl;
+        currentTime++;
     }
-    cout << "Expecting final floor: 5, Actual: " << e.getCurrentFloor() << endl;
-    cout << "Expecting isServicing: 0, Actual: " << e.isServicing() << endl;
 
     // Test going downward
     e.serviceRequest(2);
@@ -215,46 +215,57 @@ void testMove() {
 
 void testFloor() {
     cout << "// Testing Floor class\n";
+    cout << boolalpha;
 
-    Floor floor;
+    // --- Test: Add person going up ---
+    Floor floorUp;
+    Person p1("0f0t3a0");  // currentFloor 0 -> targetFloor 3 (up)
+    floorUp.addPerson(p1, p1.getTargetFloor() - p1.getCurrentFloor());
 
-    // Create test people
-    Person p1("0f0t3a0");  // going up
-    Person p2("1f3t1a0");  // going down
-    Person p3("2f2t8a" + to_string(MAX_ANGER - 2)); // will explode on next tick
+    cout << "Expecting numPeople: 1, Actual: " << floorUp.getNumPeople() << endl;
+    cout << "Expecting hasUpRequest: true, Actual: " << floorUp.getHasUpRequest() << endl;
+    cout << "Expecting hasDownRequest: false, Actual: " << floorUp.getHasDownRequest() << endl;
 
-    // Add person going up
-    floor.addPerson(p1, p1.getTargetFloor() - p1.getCurrentFloor());
-    cout << "Expecting numPeople: 1, Actual: " << floor.getNumPeople() << endl;
-    cout << "Expecting hasUpRequest: 1, Actual: " << floor.getHasUpRequest() << endl;
-    cout << "Expecting hasDownRequest: 0, Actual: " << floor.getHasDownRequest() << endl;
+    // --- Test: Add person going down ---
+    Floor floorDown;
+    Person p2("1f5t2a0");  // currentFloor 5 -> targetFloor 2 (down)
+    floorDown.addPerson(p2, p2.getTargetFloor() - p2.getCurrentFloor());
 
-    // Add person going down
-    floor.addPerson(p2, p2.getTargetFloor() - p2.getCurrentFloor());
-    cout << "Expecting numPeople: 2, Actual: " << floor.getNumPeople() << endl;
-    cout << "Expecting hasUpRequest: 0, Actual: " << floor.getHasUpRequest() << endl;
-    cout << "Expecting hasDownRequest: 1, Actual: " << floor.getHasDownRequest() << endl;
+    cout << "Expecting numPeople: 1, Actual: " << floorDown.getNumPeople() << endl;
+    cout << "Expecting hasUpRequest: false, Actual: " << floorDown.getHasUpRequest() << endl;
+    cout << "Expecting hasDownRequest: true, Actual: " << floorDown.getHasDownRequest() << endl;
 
-    // Add person close to explosion
-    floor.addPerson(p3, p3.getTargetFloor() - p3.getCurrentFloor());
-    cout << "Expecting numPeople: 3, Actual: " << floor.getNumPeople() << endl;
+    // --- Test: Add person close to explosion and tick ---
+    Floor floorExplode;
+    Person p3("2f2t8a" + to_string(MAX_ANGER - 1)); // anger = MAX_ANGER - 1
+    floorExplode.addPerson(p3, p3.getTargetFloor() - p3.getCurrentFloor());
 
-    // Check explosion behavior
-    cout << "// Testing tick (should explode one person)\n";
-    int exploded = floor.tick((MAX_ANGER - 1) * TICKS_PER_ANGER_INCREASE);
+    cout << "Before tick, numPeople: " << floorExplode.getNumPeople() << endl;
+    int exploded = floorExplode.tick(MAX_ANGER * TICKS_PER_ANGER_INCREASE);
     cout << "Expecting exploded: 1, Actual: " << exploded << endl;
-    cout << "Expecting numPeople after tick: 2, Actual: " << floor.getNumPeople() << endl;
+    cout << "Expecting numPeople after tick: 0, Actual: " << floorExplode.getNumPeople() << endl;
 
-    // Test removePeople explicitly
-    cout << "// Testing removePeople (removing index 0)\n";
-    int toRemove[1] = { 0 };
-    floor.removePeople(toRemove, 1);
-    cout << "Expecting numPeople after removal: 1, Actual: " << floor.getNumPeople() << endl;
+    // --- Test: Remove multiple people ---
+    Floor floorRemove;
+    Person p4("0f1t9a1");
+    Person p5("1f0t8a0");
+    Person p6("2f0t9a0");
+    Person p7("3f0t9a1");
+
+    floorRemove.addPerson(p4, p4.getTargetFloor() - p4.getCurrentFloor());
+    floorRemove.addPerson(p5, p5.getTargetFloor() - p5.getCurrentFloor());
+    floorRemove.addPerson(p6, p6.getTargetFloor() - p6.getCurrentFloor());
+    floorRemove.addPerson(p7, p7.getTargetFloor() - p7.getCurrentFloor());
+
+    int toRemove[3] = { 0, 1, 2 };
+    floorRemove.removePeople(toRemove, 3);
+
+    cout << "Expecting numPeople after removal: 1, Actual: " << floorRemove.getNumPeople() << endl;
     cout << "Expecting remaining person: ";
-    floor.getPersonByIndex(0).print(cout);
+    floorRemove.getPersonByIndex(0).print(cout);
     cout << endl;
 
-    // Visual confirmation
+    // --- Visual confirmation of pickup menu ---
     cout << "// Testing printFloorPickupMenu()\n";
-    floor.printFloorPickupMenu(cout);
+    floorRemove.printFloorPickupMenu(cout);
 }

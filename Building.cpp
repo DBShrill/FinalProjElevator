@@ -22,14 +22,15 @@ void Building::spawnPerson(Person newPerson){
 }
 
 void Building::update(Move move){
+    //skip if its a pass move
     if (move.isPassMove()){
     	return;
     }
 	//TODO: figure out how to add people to pickup to list
     else if(move.isPickupMove()){
-    	Person peopleToPickup[10];
-//        for (int i = 0; i < floors[]; i++){
-//
+//    	Person peopleToPickup[MAX_PEOPLE_PER_FLOOR];
+//        for (int i = 0; i < NUM_FLOORS; i++){
+//            peopleToPickup[i] =
 //        }
 
     }
@@ -38,10 +39,20 @@ void Building::update(Move move){
 }
 
 int Building::tick(Move move){
-    //TODO: Implement tick
+    int exploded = 0;
+    //iterates through all elevators
+    for (int i = 0; i < NUM_ELEVATORS; i++){
+        elevators[i].tick(move);
+    }
 
-    //returning 0 to prevent compilation error
-    return 0;
+    //iterates through all floors
+    for (int i = 0; i < NUM_FLOORS; i++){
+        exploded += floors[i].tick(move);
+    }
+
+    update(move);
+
+    return exploded;
 }
 
 //////////////////////////////////////////////////////

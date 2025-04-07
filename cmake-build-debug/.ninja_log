@@ -11,3 +11,8 @@
 566	606	1743868992799154917	FinalProjElevator	62cbcb72fd9316b
 2	48	1743895553143791545	build.ninja	b8b8cf9d183994ad
 3	36	1743895553153005689	FinalProjElevator	5d89416c9cfba39b
+14	810	1743964824971784143	CMakeFiles/FinalProjElevator.dir/Elevator.cpp.o	1ef735a6f00aaab8
+16	811	1743964824973649367	CMakeFiles/FinalProjElevator.dir/Floor.cpp.o	9317a74f53ea4f6b
+16	812	1743964824973949703	CMakeFiles/FinalProjElevator.dir/Person.cpp.o	160b467106db07b1
+17	861	1743964824974350581	CMakeFiles/FinalProjElevator.dir/test.cpp.o	ffe5fdb96229c7d0
+861	964	1743964825818705086	FinalProjElevator	5d89416c9cfba39b

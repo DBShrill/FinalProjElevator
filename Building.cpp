@@ -29,30 +29,30 @@ void Building::update(Move move){
 
 	//TODO: figure out how to add people to pickup to list
    
-        int elevatorId = move.getElevatorId();
-        Elevator& which_elevator = elevators[elevatorId];
+    int elevatorId = move.getElevatorId();
+    Elevator& which_elevator = elevators[elevatorId];
     
-        // Handle Pickup Moves
-        if (move.isPickupMove()) {
-            // Get current floor of the elevator (where pickup happens)
-            int currentFloor = which_elevator.getCurrentFloor();
-            Floor& floor = floors[currentFloor];
-    
-            // Copy list of people to pickup from the move
-            int peopleIndices[MAX_PEOPLE_PER_FLOOR];
-            move.copyListOfPeopleToPickup(peopleIndices);
-            int numPeopleToPickup = move.getNumPeopleToPickup();
-    
-            // Remove those people from the floor
-            floor.removePeople(peopleIndices, numPeopleToPickup);
-        }
+    // Handle Pickup Moves
+    else if (move.isPickupMove()) {
+        // Get current floor of the elevator (where pickup happens)
+        int currentFloor = which_elevator.getCurrentFloor();
+        Floor& floor = floors[currentFloor];
 
+       // Copy list of people to pickup from the move
+       int peopleIndices[MAX_PEOPLE_PER_FLOOR];
+       move.copyListOfPeopleToPickup(peopleIndices);
+       int numPeopleToPickup = move.getNumPeopleToPickup();
+    
+       // Remove those people from the floor
+        floor.removePeople(peopleIndices, numPeopleToPickup);
     }
 
     else if (move.isPickupMove()&& move.isServicing()){
- // For both Pickup Moves and Service Moves, service the target floor
+        // For both Pickup Moves and Service Moves, service the target floor
         which_elevator.serviceRequest(move.getTargetFloor());
     }
+
+}
 
 
 
@@ -60,12 +60,12 @@ int Building::tick(Move move){
     int exploded = 0;
     //iterates through all elevators
     for (int i = 0; i < NUM_ELEVATORS; i++){
-        elevators[i].tick(move);
+        elevators[i].tick(time);
     }
 
     //iterates through all floors
     for (int i = 0; i < NUM_FLOORS; i++){
-        exploded += floors[i].tick(move);
+        exploded += floors[i].tick(time);
     }
 
     update(move);

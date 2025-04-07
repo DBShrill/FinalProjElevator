@@ -22,16 +22,13 @@ void Building::spawnPerson(Person newPerson){
 }
 
 void Building::update(Move move){
+    int elevatorId = move.getElevatorId();
+    Elevator& which_elevator = elevators[elevatorId];
     //skip if its a pass move
     if (move.isPassMove()){
     	return;
     }
 
-	//TODO: figure out how to add people to pickup to list
-   
-    int elevatorId = move.getElevatorId();
-    Elevator& which_elevator = elevators[elevatorId];
-    
     // Handle Pickup Moves
     else if (move.isPickupMove()) {
         // Get current floor of the elevator (where pickup happens)
@@ -44,10 +41,10 @@ void Building::update(Move move){
        int numPeopleToPickup = move.getNumPeopleToPickup();
     
        // Remove those people from the floor
-        floor.removePeople(peopleIndices, numPeopleToPickup);
+       floor.removePeople(peopleIndices, numPeopleToPickup);
     }
 
-    else if (move.isPickupMove()&& move.isServicing()){
+    else if (move.isPickupMove() && which_elevator.isServicing()){
         // For both Pickup Moves and Service Moves, service the target floor
         which_elevator.serviceRequest(move.getTargetFloor());
     }

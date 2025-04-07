@@ -26,10 +26,8 @@ Move::Move(string commandString) : Move() {
     isPickup = false;
     isSave = false;
     isQuit = false;
-   targetFloor = 0;
-   elevatorId = 0;
-
-   
+   targetFloor = -1;
+   elevatorId = -1;
    
 string lower_commandString = "";
 // initialized a new empty string for recode lowerchar string.

@@ -26,17 +26,35 @@ void Building::update(Move move){
     if (move.isPassMove()){
     	return;
     }
+
 	//TODO: figure out how to add people to pickup to list
-    else if(move.isPickupMove()){
-//    	Person peopleToPickup[MAX_PEOPLE_PER_FLOOR];
-//        for (int i = 0; i < NUM_FLOORS; i++){
-//            peopleToPickup[i] =
-//        }
+   
+        int elevatorId = move.getElevatorId();
+        Elevator& which_elevator = elevators[elevatorId];
+    
+        // Handle Pickup Moves
+        if (move.isPickupMove()) {
+            // Get current floor of the elevator (where pickup happens)
+            int currentFloor = which_elevator.getCurrentFloor();
+            Floor& floor = floors[currentFloor];
+    
+            // Copy list of people to pickup from the move
+            int peopleIndices[MAX_PEOPLE_PER_FLOOR];
+            move.copyListOfPeopleToPickup(peopleIndices);
+            int numPeopleToPickup = move.getNumPeopleToPickup();
+    
+            // Remove those people from the floor
+            floor.removePeople(peopleIndices, numPeopleToPickup);
+        }
 
     }
 
-    //else if (move.is
-}
+    else if (move.isPickupMove()&& move.isServicing()){
+ // For both Pickup Moves and Service Moves, service the target floor
+        which_elevator.serviceRequest(move.getTargetFloor());
+    }
+
+
 
 int Building::tick(Move move){
     int exploded = 0;

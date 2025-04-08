@@ -51,8 +51,6 @@ void Building::update(Move move){
 
 }
 
-
-
 int Building::tick(Move move){
     int exploded = 0;
     //iterates through all elevators

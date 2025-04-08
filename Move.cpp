@@ -118,8 +118,6 @@ string lower_commandString = "";
 
 
 bool Move::isValidMove(Elevator elevators[NUM_ELEVATORS]) const {
-    //TODO: Implement isValidMove
-    
         // Pass, Quit, and Save moves are always valid
         if (isPass || isQuit || isSave) {
             return true;
@@ -158,22 +156,25 @@ void Move::setPeopleToPickup(const string& pickupList, const int currentFloor,
                              const Floor& pickupFloor) {
     numPeopleToPickup = 0;
     totalSatisfaction = 0;
-    int maxFloorDif = 0;
 
     for (int i = 0; i < pickupList.length(); i++){
-        int tempMaxFloorDif = 0;
+        //converts index in peopleToPickup to an integer
         peopleToPickup[i] = static_cast<int>(pickupList.at(i) - '0');
-        totalSatisfaction += MAX_ANGER - pickupFloor.getPersonByIndex(i).getAngerLevel();
+        //adds satisfaction through (MAX_ANGER - current anger level)
+        totalSatisfaction += MAX_ANGER - pickupFloor.getPersonByIndex(peopleToPickup[i]).getAngerLevel();
         numPeopleToPickup++;
     }
 
+    int maxFloorDif = -1;
     for (int i = 0; i < numPeopleToPickup; i++) {
-        int tempMaxFloorDif = 0;
-        tempMaxFloorDif = abs(pickupFloor.getPersonByIndex(i).getTargetFloor() -
-                                pickupFloor.getPersonByIndex(i).getCurrentFloor());
+        //calculates the absolute difference between the target and current floor
+        int tempMaxFloorDif = abs(pickupFloor.getPersonByIndex(peopleToPickup[i]).getTargetFloor() -
+                                currentFloor);
+        //if there is a greater floor difference, set maxFloorDif to new value
         if (tempMaxFloorDif > maxFloorDif) {
             maxFloorDif = tempMaxFloorDif;
-            targetFloor = pickupFloor.getPersonByIndex(i).getTargetFloor();
+            //set the new target floor to current person
+            targetFloor = pickupFloor.getPersonByIndex(peopleToPickup[i]).getTargetFloor();
         }
     }
 }

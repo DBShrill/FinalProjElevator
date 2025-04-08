@@ -28,10 +28,28 @@ void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
     std::uniform_int_distribution<> floorDist(0, 9);
     std::uniform_int_distribution<> angerDist(0, 3);
 
-    // initialize the game
+    // If the game input file is not open, exit with status 1
+    if (!gameFile.is_open()) {
+        exit(1);
+    }
+
+    // sets isAIMode
     isAIMode = isAIModeIn;
+
+    // prints game start prompt
     printGameStartPrompt();
+
+    // initializes the game with the gameFile
     initGame(gameFile);
+
+    // reads events from game input file
+    vector<Person> eventQueue;
+    string line;
+    while (getline(gameFile, line)) {
+        // // Create a Person from the line
+        Person p(line);
+        eventQueue.push_back(p);
+    }
 
     /* play until checkForGameEnd() stops the program
      * you *will* modify this loop

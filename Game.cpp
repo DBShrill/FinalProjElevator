@@ -36,24 +36,31 @@ void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
     initGame(gameFile);
 
     // reads events from game input file
-    vector<Person> eventQueue;
     string line;
-    while (getline(gameFile, line)) {
-        // // Create a Person from the line
-        Person p(line);
-        eventQueue.push_back(p);
+    Person nextPerson;
+    bool hasNextPerson = false;
+
+    // Read the first person before entering the loop
+    if (getline(gameFile, line)) {
+        nextPerson = Person(line);
+        hasNextPerson = true;
     }
 
    // play until checkForGameEnd() stops the program
-    size_t eventIndex = 0;
     while (true) {
         int currentTime = building.getTime();
 
-        // Spawn all people whose turn is now
-        while (eventIndex < eventQueue.size() &&
-            eventQueue[eventIndex].getTurn() == currentTime) {
-            building.spawnPerson(eventQueue[eventIndex]);
-            eventIndex++;
+        // Spawn person if their turn matches current time
+        while (hasNextPerson && nextPerson.getTurn() == currentTime) {
+            building.spawnPerson(nextPerson);
+
+            // Read the next one
+            if (getline(gameFile, line)) {
+                nextPerson = Person(line);
+            }
+            else {
+                hasNextPerson = false;
+            }
         }
 
         // print the state of the Building and check for end of game

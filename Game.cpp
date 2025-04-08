@@ -21,13 +21,6 @@ using namespace std;
 // You *must* revise this function according to the RME and spec
 // Code that will not appear in your solution is noted in the comments
 void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
-    /* used to generate random numbers for spawning a randon Person
-     * these three statements will not be needed when you have
-     * finished this function */
-    std::mt19937 gen(1);
-    std::uniform_int_distribution<> floorDist(0, 9);
-    std::uniform_int_distribution<> angerDist(0, 3);
-
     // If the game input file is not open, exit with status 1
     if (!gameFile.is_open()) {
         exit(1);
@@ -51,26 +44,20 @@ void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
         eventQueue.push_back(p);
     }
 
-    /* play until checkForGameEnd() stops the program
-     * you *will* modify this loop
-     */
+   // play until checkForGameEnd() stops the program
+    size_t eventIndex = 0;
     while (true) {
-        // random floor and targetFloor
-        // these two statements are not needed in the finished solution
-        int src = floorDist(gen);
-        int dst = floorDist(gen);
-        
-        /* check that the randomly generate floor and targetFloor differ
-         * none of this if statement will appear in your finished solution
-         * Persons will be read from the file instead */
-        if (src != dst) {
-            std::stringstream ss;
-            ss << "0f" << src << "t" << dst << "a" << angerDist(gen);
-            Person p(ss.str());
-            building.spawnPerson(p);
+        int currentTime = building.getTime();
+
+        // Spawn all people whose turn is now
+        while (eventIndex < eventQueue.size() &&
+            eventQueue[eventIndex].getTurn() == currentTime) {
+            building.spawnPerson(eventQueue[eventIndex]);
+            eventIndex++;
         }
 
         // print the state of the Building and check for end of game
+        // have the user play the game
         building.prettyPrintBuilding(cout);
         satisfactionIndex.printSatisfaction(cout, false);
         checkForGameEnd();

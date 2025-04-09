@@ -18,12 +18,13 @@ using namespace std;
 
 void Building::spawnPerson(Person newPerson){
 	//adds new person based on their current floor and their target floor
-	floors[newPerson.getCurrentFloor()].addPerson(newPerson, newPerson.getTargetFloor());
+	floors[newPerson.getCurrentFloor()].addPerson(newPerson, newPerson.getTargetFloor() - newPerson.getCurrentFloor());
 }
 
 void Building::update(Move move){
     int elevatorId = move.getElevatorId();
     Elevator& which_elevator = elevators[elevatorId];
+
     //skip if its a pass move
     if (move.isPassMove()){
     	return;
@@ -35,16 +36,19 @@ void Building::update(Move move){
         int currentFloor = which_elevator.getCurrentFloor();
         Floor& floor = floors[currentFloor];
 
-       // Copy list of people to pickup from the move
-       int peopleIndices[MAX_PEOPLE_PER_FLOOR];
-       move.copyListOfPeopleToPickup(peopleIndices);
-       int numPeopleToPickup = move.getNumPeopleToPickup();
-    
-       // Remove those people from the floor
-       floor.removePeople(peopleIndices, numPeopleToPickup);
+        // Copy list of people to pickup from the move
+        int peopleIndices[MAX_PEOPLE_PER_FLOOR];
+        move.copyListOfPeopleToPickup(peopleIndices);
+        int numPeopleToPickup = move.getNumPeopleToPickup();
+
+        // Remove those people from the floor
+        floor.removePeople(peopleIndices, numPeopleToPickup);
+
+        //Service elevator
+        which_elevator.serviceRequest(move.getTargetFloor());
     }
 
-    else if (move.isPickupMove() && which_elevator.isServicing()){
+    else {
         // For both Pickup Moves and Service Moves, service the target floor
         which_elevator.serviceRequest(move.getTargetFloor());
     }
@@ -52,7 +56,10 @@ void Building::update(Move move){
 }
 
 int Building::tick(Move move){
+    update(move);
     int exploded = 0;
+    time++;
+
     //iterates through all elevators
     for (int i = 0; i < NUM_ELEVATORS; i++){
         elevators[i].tick(time);
@@ -62,8 +69,6 @@ int Building::tick(Move move){
     for (int i = 0; i < NUM_FLOORS; i++){
         exploded += floors[i].tick(time);
     }
-
-    update(move);
 
     return exploded;
 }

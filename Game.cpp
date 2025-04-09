@@ -87,7 +87,7 @@ bool Game::isValidPickupList(const string& pickupList,
             }
     }
 
-            for (int k =0; k < pickupList.size()); k++){
+            for (int k =0; k < pickupList.size(); k++){
                 if (!isdigit(pickupList.at(i))){
                     return false;
                 }
@@ -95,7 +95,7 @@ bool Game::isValidPickupList(const string& pickupList,
 
             }
 
-            
+
     return true;
 }
 

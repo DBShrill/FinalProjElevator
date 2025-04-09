@@ -79,6 +79,23 @@ void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
 // You *must* revise this function according to the RME and spec
 bool Game::isValidPickupList(const string& pickupList, 
                              const int pickupFloorNum) const {
+   
+            for ( int i= 0; i < pickupList.size()-1;i++ ){
+                   if (pickupList.at(i) == pickupList.at(i+1)){
+                    return false;
+
+            }
+    }
+
+            for (int k =0; k < pickupList.size()); k++){
+                if (!isdigit(pickupList.at(i))){
+                    return false;
+                }
+
+
+            }
+
+            
     return true;
 }
 

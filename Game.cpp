@@ -91,21 +91,22 @@ bool Game::isValidPickupList(const string& pickupList,
 
             // 2. Check each character is a digit between '0'-'9'
             for (int k =0; k < pickupList.size(); k++){
-                if (!isdigit(pickupList.at(i))){
+                if (!isdigit(pickupList.at(k))){
 
                     return false;
                 }
             }
 
-            ////3. not sure,The length of the pickupList is less than or equal to the capacity of an elevator
-           const int max_capability = 10;
-            if (pickupList.size() > max_capability){
+            ////3. The length of the pickupList is less than or equal to the capacity of an elevator
+          
+ 
+            if (pickupList.size() > ELEVATOR_CAPACITY ){
                 return false;
 
             }
 
             // Get the floor and its people count
-            Floor pickupFloor = Building::getFloorByFloorNum(pickupFloorNum);
+            Floor pickupFloor = building.getFloorByFloorNum(pickupFloorNum);
             int numPeople = pickupFloor.getNumPeople();
 
             // 4. Check all indices are valid (less than number of people on floor)
@@ -134,7 +135,7 @@ bool Game::isValidPickupList(const string& pickupList,
                 }
             }
         }
-        
+
     return true;
 }
 

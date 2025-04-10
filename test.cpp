@@ -274,7 +274,7 @@ void testFloor() {
 
     
 }
-
+////// Need to initialized the floor class before test game.
 // void testGame() {
 // // --- Test: Game::isValidPickUpList---
 // Game game;

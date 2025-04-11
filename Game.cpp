@@ -41,8 +41,7 @@ void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
     Person nextPerson;
 
    // play until there are no more new lines
-    while (getline(gameFile, line)) {
-        gameFile >> line;
+    while (gameFile >> line) {
         nextPerson = Person(line);
 
         //sets time that person is spawned

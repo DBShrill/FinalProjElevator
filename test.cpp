@@ -45,7 +45,7 @@ void testGame();
 int main() {
     Game game;
     bool isAI = false;
-    ifstream gameFile("randomShortGame.in");
+    ifstream gameFile("morningNormalGame.in");
 
     game.playGame(isAI, gameFile);
     gameFile.close();

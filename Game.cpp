@@ -81,9 +81,9 @@ bool Game::isValidPickupList(const string& pickupList,
                              const int pickupFloorNum) const {
    
                // 1. Check for duplicate indices
-            for (int i = 0; i < pickupList.size()-1; i++) {
+            for (int i = 0; i < pickupList.size(); i++) {
                     for (int j = i+1; j < pickupList.size(); j++) {
-                        if (pickupList.at(i) == pickupList.at(j)) {
+                        if (pickupList[i] == pickupList[j]) {
                 return false;
             }
         }
@@ -110,31 +110,39 @@ bool Game::isValidPickupList(const string& pickupList,
             int numPeople = pickupFloor.getNumPeople();
 
             // 4. Check all indices are valid (less than number of people on floor)
-            for (int m = 0; m < pickupList.size(); m++) {
-             int index = pickupList.at(m) - '0'; // Convert char to int
-                if (index >= numPeople) {
+            for (int i = 0; i < pickupList.size(); i++) {
+                if (numPeople <= (pickupList[i] - '0')){
                     return false;
-        }
+                  }
+                
+              
     }
         // 5. Check all selected people are going in same direction
-        if (pickupList.size() > 0) {
-            // Get first person's direction as reference
-            int firstIndex = pickupList.at(0) - '0';
-            Person firstPerson = pickupFloor.getPersonByIndex(firstIndex);
-            int firstTarget = firstPerson.getTargetFloor();
-            bool firstDirection = (firstTarget > pickupFloorNum); // true = up, false = down
-
-            for (int n = 1; n < pickupList.size(); n++) {
-                int currentIndex = pickupList.at(n) - '0';
-                Person currentPerson = pickupFloor.getPersonByIndex(currentIndex);
-                int currentTarget = currentPerson.getTargetFloor();
-                bool currentDirection = (currentTarget > pickupFloorNum);
-
-                if (currentDirection != firstDirection) {
-                    return false;
-                }
-            }
+        string direction = "up";
+        Person p1 = pickupFloor.getPersonByIndex(pickupList[0] - '0');
+        if (p1.getTargetFloor() - p1.getCurrentFloor() < 0) {
+          direction = "down";
         }
+    
+
+        if (direction == "up") {
+          for (int i = 0; i < pickupList.length(); i++) {
+            Person p2 = pickupFloor.getPersonByIndex(pickupList[i] - '0');
+            if (p2.getTargetFloor() - p2.getCurrentFloor() < 0) {
+              return false;
+            }
+          }
+        }
+
+        if (direction == "down") {
+          for (int i = 0; i < pickupList.length(); i++) {
+            Person p = pickupFloor.getPersonByIndex(pickupList[i] - '0');
+            if (p.getTargetFloor() - p.getCurrentFloor() > 0) {
+              return false;
+            }
+          }
+        }
+    
 
     return true;
 }

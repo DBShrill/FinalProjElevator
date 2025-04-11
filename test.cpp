@@ -43,7 +43,13 @@ void testGame();
 
 //temporary main function
 int main() {
-    start_tests();
+    Game game;
+    bool isAI = false;
+    ifstream gameFile("morningNormalGame.in");
+
+    game.playGame(isAI, gameFile);
+    gameFile.close();
+    return 0;
 }
 
 // declare your test functions here

@@ -280,51 +280,61 @@ void testFloor() {
 
     
 }
-////// Need to initialized the floor class before test game.
-// void testGame() {
-// // --- Test: Game::isValidPickUpList---
-// Game game;
-//
-// // Test Case 1: Duplicate Indices
-// cout << "Test 1 - Duplicate indices (Expecting: false): "
-//      << game.isValidPickupList("011", 1) << endl;
-// cout << "Test 1 - Non-consecutive duplicates (Expecting: false): "
-//      << game.isValidPickupList("101", 1) << endl;
-// cout << "Test 1 - Valid no duplicates (Expecting: true): "
-//      << game.isValidPickupList("012", 1) << endl << endl;
-//
-//
-// // Test Case 2: Non-Digit or Out-of-Range Characters
-// cout << "Test 2 - Contains letter (Expecting: false): "
-//      << game.isValidPickupList("a12", 1) << endl;
-// cout << "Test 2 - Contains symbol (Expecting: false): "
-//      << game.isValidPickupList("12:", 1) << endl;
-// cout << "Test 2 - Valid digits only (Expecting: true): "
-//      << game.isValidPickupList("123", 1) << endl << endl;
-//
-//
-// // Test Case 3: Exceeds Elevator Capacity
-// cout << "Test 3 - Exceeds capacity (Expecting: false): "
-//      << game.isValidPickupList("01234567890", 1) << endl;
-// cout << "Test 3 - At capacity limit (Expecting: true): "
-//      << game.isValidPickupList("0123456789", 1) << endl << endl;
-//
-//
-// // Test Case 4: Invalid Floor Indices
-// cout << "Test 4 - Index too high (Expecting: false): "
-//      << game.isValidPickupList("05", 1) << endl;  // Assuming 5 people on floor
-// cout << "Test 4 - All indices valid (Expecting: true): "
-//      << game.isValidPickupList("012", 1) << endl << endl;
-//
-//
-// // Test Case 5: Mixed Directions
-// cout << "Test 5 - Mixed directions (Expecting: false): "
-//      << game.isValidPickupList("01", 1) << endl;  // Assuming 0=up, 1=down
-// cout << "Test 5 - Same direction (Expecting: true): "
-//      << game.isValidPickupList("123", 5) << endl << endl;
-//
-//
-// // Bonus Edge Case
-// cout << "Test 6 - Target equals current floor (Expecting: false): "
-//      << game.isValidPickupList("0", 1) << endl;  // Person not moving
-// }
+
+
+void testGame() {
+     // --- Test: Game::isValidPickUpList---
+     Game game;
+         Floor f;
+         Person p1;
+         Person p2;
+         Person p3;
+         f.addPerson(p1, 2);
+         f.addPerson(p2, 1);
+         f.addPerson(p3, 5);
+         
+     // Test Case 1: Duplicate Indices
+     cout << "Test 1 - Duplicate indices (Expecting: false): " 
+          << game.isValidPickupList("011", 1) << endl;
+     cout << "Test 1 - Non-consecutive duplicates (Expecting: false): " 
+          << game.isValidPickupList("101", 1) << endl;
+     cout << "Test 1 - Valid no duplicates (Expecting: true): "
+          << game.isValidPickupList("012", 5) << endl << endl;
+     
+     
+     // Test Case 2: Non-Digit or Out-of-Range Characters
+     cout << "Test 2 - Contains letter (Expecting: false): " 
+          << game.isValidPickupList("a12", 1) << endl;
+     cout << "Test 2 - Contains symbol (Expecting: false): " 
+          << game.isValidPickupList("12:", 1) << endl;
+     cout << "Test 2 - Valid digits only (Expecting: true): " 
+          << game.isValidPickupList("123", 1) << endl << endl;
+     
+     
+     // Test Case 3: Exceeds Elevator Capacity
+     cout << "Test 3 - Exceeds capacity (Expecting: false): " 
+          << game.isValidPickupList("01234567890", 1) << endl;
+     cout << "Test 3 - At capacity limit (Expecting: true): " 
+          << game.isValidPickupList("0123456789", 1) << endl << endl;
+     
+     
+     // Test Case 4: Invalid Floor Indices
+     cout << "Test 4 - Index too high (Expecting: false): " 
+          << game.isValidPickupList("05", 1) << endl;  // Assuming 5 people on floor
+     cout << "Test 4 - All indices valid (Expecting: true): " 
+          << game.isValidPickupList("012", 1) << endl << endl;
+     
+     
+     // Test Case 5: Mixed Directions
+     cout << "Test 5 - Mixed directions (Expecting: false): " 
+          << game.isValidPickupList("01", 1) << endl;  // Assuming 0=up, 1=down
+     cout << "Test 5 - Same direction (Expecting: true): " 
+          << game.isValidPickupList("123", 5) << endl << endl;
+     
+     
+     // Bonus Edge Case
+     cout << "Test 6 - Target equals current floor (Expecting: false): " 
+          << game.isValidPickupList("0", 1) << endl;  // Person not moving
+     }
+     
+     

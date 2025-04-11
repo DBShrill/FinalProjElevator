@@ -8,4 +8,8 @@ Elevator.cpp
 Floor.cpp
 Person.cpp
 test.cpp
-Move.cpp)
+Move.cpp
+SatisfactionIndex.cpp
+Game.cpp
+Building.cpp
+AI.cpp)

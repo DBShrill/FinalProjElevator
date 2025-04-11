@@ -21,6 +21,7 @@ using namespace std;
 // You *must* revise this function according to the RME and spec
 // Code that will not appear in your solution is noted in the comments
 void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
+
     // If the game input file is not open, exit with status 1
     if (!gameFile.is_open()) {
         exit(1);
@@ -38,40 +39,25 @@ void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
     // reads events from game input file
     string line;
     Person nextPerson;
-    bool hasNextPerson = false;
 
-    // Read the first person before entering the loop
-    if (getline(gameFile, line)) {
+   // play until there are no more new lines
+    while (getline(gameFile, line)) {
+        gameFile >> line;
         nextPerson = Person(line);
-        hasNextPerson = true;
-    }
 
-   // play until checkForGameEnd() stops the program
-    while (true) {
-        int currentTime = building.getTime();
+        //sets time that person is spawned
+        int spawnTime = nextPerson.getTurn();
 
-        // Spawn person if their turn matches current time
-        while (hasNextPerson && nextPerson.getTurn() == currentTime) {
-            building.spawnPerson(nextPerson);
+        //Checks when turn is finished
+        while (building.getTime() < spawnTime) {
+            building.prettyPrintBuilding(cout);
+            satisfactionIndex.printSatisfaction(cout, false);
+            checkForGameEnd();
 
-            // Read the next one
-            if (getline(gameFile, line)) {
-                nextPerson = Person(line);
-            }
-            else {
-                hasNextPerson = false;
-            }
+            Move nextMove = getMove();
+            update(nextMove);
         }
-
-        // print the state of the Building and check for end of game
-        // have the user play the game
-        building.prettyPrintBuilding(cout);
-        satisfactionIndex.printSatisfaction(cout, false);
-        checkForGameEnd();
-
-        // get and apply the next move
-        Move nextMove = getMove();
-        update(nextMove);
+        building.spawnPerson(nextPerson);
     }
 }
 

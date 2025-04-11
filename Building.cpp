@@ -22,16 +22,17 @@ void Building::spawnPerson(Person newPerson){
 }
 
 void Building::update(Move move){
-    int elevatorId = move.getElevatorId();
-    Elevator& which_elevator = elevators[elevatorId];
 
     //skip if its a pass move
     if (move.isPassMove()){
     	return;
     }
 
+    int elevatorId = move.getElevatorId();
+    Elevator& which_elevator = elevators[elevatorId];
+
     // Handle Pickup Moves
-    else if (move.isPickupMove()) {
+    if (move.isPickupMove()) {
         // Get current floor of the elevator (where pickup happens)
         int currentFloor = which_elevator.getCurrentFloor();
         Floor& floor = floors[currentFloor];

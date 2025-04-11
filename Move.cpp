@@ -19,8 +19,6 @@
 using namespace std;
 
 Move::Move(string commandString) : Move() {
-    //TODO: Implement non-default constructor
-
     // Initialize all boolean flags to false
     isPass = false;
     isPickup = false;

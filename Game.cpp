@@ -9,57 +9,60 @@
  *
  * Final Project - Elevators
  */
-
 #include <random>
 #include <sstream>
 #include "Game.h"
 #include "AI.h"
 #include "Utility.h"
 using namespace std;
-
 // Stub for playGame for Core, which plays random games
 // You *must* revise this function according to the RME and spec
 // Code that will not appear in your solution is noted in the comments
 void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
+    // Step 1: Exit if game file isn't open
     if (!gameFile.is_open()) {
         exit(1);
     }
 
-    //AI mode
+    // Step 2: Set AI mode
     isAIMode = isAIModeIn;
+
+    // Step 3: Print game start prompt
     printGameStartPrompt();
+
+    // Step 4: Initialize game using the file
     initGame(gameFile);
 
-    //variables to use
-    int currentTime, currentFloor, targetFloor, angerLevel;
-    bool isFirstIteration = true;
-    int spawnTime;
-    char delimiter;
-    bool isGameEnd = false;
+    // Step 5: Prepare for reading person events
+    string nextLine;
+    Person nextPerson;
+    bool hasBufferedPerson = false;
 
+    // Main game loop
     while (true) {
-        currentTime = building.getTime();
-        if (isFirstIteration) {
-            gameFile >> spawnTime >> delimiter >> currentFloor >> delimiter >> targetFloor >> delimiter >> angerLevel;
-            isFirstIteration = 0;
+        int currentTime = building.getTime();
+
+        // Step 6: Read and spawn all people scheduled for this tick
+        while (true) {
+            if (!hasBufferedPerson) {
+                if (!getline(gameFile, nextLine)) break;  // no more people
+                if (nextLine.empty()) continue;           // skip empty lines
+
+                nextPerson = Person(nextLine);
+                hasBufferedPerson = true;
+            }
+
+            if (nextPerson.getTurn() > currentTime) {
+                break;  // wait for future tick
+            }
+
+            // Spawn person for this tick
+            building.spawnPerson(nextPerson);
+            checkForGameEnd();  // catch explosions from spawn
+            hasBufferedPerson = false;
         }
 
-        while (spawnTime <= currentTime && !isGameEnd) {
-            if (currentFloor != targetFloor) {
-                std::stringstream personData;
-                personData << spawnTime << "f" << currentFloor << "t" << targetFloor << "a" << angerLevel;
-                Person newPerson(personData.str());
-                building.spawnPerson(newPerson);
-            }
-            if (gameFile >> spawnTime >> delimiter >> currentFloor >> delimiter
-                >> targetFloor >> delimiter >> angerLevel) {
-                continue;
-            }
-            else {
-                isGameEnd = true;
-            }
-        }
-
+        // Step 7: Show state, check end, get move
         building.prettyPrintBuilding(cout);
         satisfactionIndex.printSatisfaction(cout, false);
         checkForGameEnd();
@@ -73,7 +76,6 @@ void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
 // You *must* revise this function according to the RME and spec
 bool Game::isValidPickupList(const string& pickupList,
                              const int pickupFloorNum) const {
-
                // 1. Check for duplicate indices
             for (int i = 0; i < pickupList.size(); i++) {
                     for (int j = i+1; j < pickupList.size(); j++) {
@@ -82,34 +84,24 @@ bool Game::isValidPickupList(const string& pickupList,
             }
         }
     }
-
             // 2. Check each character is a digit between '0'-'9'
             for (int k =0; k < pickupList.size(); k++){
                 if (!isdigit(pickupList.at(k))){
-
                     return false;
                 }
             }
-
             ////3. The length of the pickupList is less than or equal to the capacity of an elevator
-
-
             if (pickupList.size() > ELEVATOR_CAPACITY ){
                 return false;
-
             }
-
             // Get the floor and its people count
             Floor pickupFloor = building.getFloorByFloorNum(pickupFloorNum);
             int numPeople = pickupFloor.getNumPeople();
-
             // 4. Check all indices are valid (less than number of people on floor)
             for (int i = 0; i < pickupList.size(); i++) {
                 if (numPeople <= (pickupList[i] - '0')){
                     return false;
                   }
-
-
     }
         // 5. Check all selected people are going in same direction
         string direction = "up";
@@ -117,8 +109,6 @@ bool Game::isValidPickupList(const string& pickupList,
         if (p1.getTargetFloor() - p1.getCurrentFloor() < 0) {
           direction = "down";
         }
-
-
         if (direction == "up") {
           for (int i = 0; i < pickupList.length(); i++) {
             Person p2 = pickupFloor.getPersonByIndex(pickupList[i] - '0');
@@ -127,7 +117,6 @@ bool Game::isValidPickupList(const string& pickupList,
             }
           }
         }
-
         if (direction == "down") {
           for (int i = 0; i < pickupList.length(); i++) {
             Person p = pickupFloor.getPersonByIndex(pickupList[i] - '0');
@@ -136,8 +125,6 @@ bool Game::isValidPickupList(const string& pickupList,
             }
           }
         }
-
-
     return true;
 }
 

@@ -17,8 +17,19 @@
 using namespace std;
 
 void Building::spawnPerson(Person newPerson){
-	//adds new person based on their current floor and their target floor
-	floors[newPerson.getCurrentFloor()].addPerson(newPerson, newPerson.getTargetFloor() - newPerson.getCurrentFloor());
+    int current = newPerson.getCurrentFloor();
+    int target = newPerson.getTargetFloor();
+
+    // Prevent invalid spawns
+    if (current < 0 || current >= NUM_FLOORS ||
+        target < 0 || target >= NUM_FLOORS ||
+        current == target) {
+        return;  // Don't spawn if out of bounds or no movement
+    }
+
+    int direction = target - current;
+
+    floors[current].addPerson(newPerson, direction);
 }
 
 void Building::update(Move move){

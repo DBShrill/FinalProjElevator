@@ -32,10 +32,10 @@ void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
 
     //variables to use
     int currentTime, currentFloor, targetFloor, angerLevel;
-    bool isFirstIteration = 1;
+    bool isFirstIteration = true;
     int spawnTime;
     char delimiter;
-    bool isGameEnd = 0;
+    bool isGameEnd = false;
 
     while (true) {
         currentTime = building.getTime();

@@ -129,7 +129,7 @@ void Building::prettyPrintBuilding(ostream& outs) const {
                 if (elevators[j].getCurrentFloor() == i &&
                     elevators[j].isServicing()) {
 
-                    char floorServiceIndicator = ('0' 
+                    char floorServiceIndicator = ('0'
                                                + elevators[j].getTargetFloor());
                     floorIndicatorIcon = floorServiceIndicator;
                 }

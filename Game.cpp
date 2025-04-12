@@ -21,64 +21,49 @@ using namespace std;
 // You *must* revise this function according to the RME and spec
 // Code that will not appear in your solution is noted in the comments
 void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
-
-    // If the game input file is not open, exit with status 1
     if (!gameFile.is_open()) {
         exit(1);
     }
 
-    // sets isAIMode
+    //AI mode
     isAIMode = isAIModeIn;
-
-    // prints game start prompt
     printGameStartPrompt();
-
-    // initializes the game with the gameFile
     initGame(gameFile);
 
-    //default buffer value
-    string pendingLine = "";
+    //variables to use
+    int currentTime, currentFloor, targetFloor, angerLevel;
+    bool isFirstIteration = 1;
+    int spawnTime;
+    char delimiter;
+    bool isGameEnd = 0;
 
     while (true) {
-
-        //checks if file is not in fail state
-        while (!gameFile.fail()) {
-            string line;
-
-            //read new line unless you can use the buffer value
-            if (!pendingLine.empty()) {
-                line = pendingLine;
-                pendingLine.clear();
-            } else {
-                getline(gameFile, line);
-            }
-
-            //exit loop if line is empty string
-            if (line == "") {
-                break;
-            }
-
-            Person nextPerson(line);
-
-            //get time that person spawns
-            int spawnTime = nextPerson.getTurn();
-
-            //if spawn time greater than building time, save buffer and exit loop
-            if (spawnTime > building.getTime()) {
-                pendingLine = line;
-                break;
-            }
-
-            //spawn person
-            building.spawnPerson(nextPerson);
+        currentTime = building.getTime();
+        if (isFirstIteration) {
+            gameFile >> spawnTime >> delimiter >> currentFloor >> delimiter >> targetFloor >> delimiter >> angerLevel;
+            isFirstIteration = 0;
         }
 
-        // print the state of the Building and check for end of game
+        while (spawnTime <= currentTime && !isGameEnd) {
+            if (currentFloor != targetFloor) {
+                std::stringstream personData;
+                personData << spawnTime << "f" << currentFloor << "t" << targetFloor << "a" << angerLevel;
+                Person newPerson(personData.str());
+                building.spawnPerson(newPerson);
+            }
+            if (gameFile >> spawnTime >> delimiter >> currentFloor >> delimiter
+                >> targetFloor >> delimiter >> angerLevel) {
+                continue;
+            }
+            else {
+                isGameEnd = true;
+            }
+        }
+
         building.prettyPrintBuilding(cout);
         satisfactionIndex.printSatisfaction(cout, false);
         checkForGameEnd();
 
-        // get and apply the next move
         Move nextMove = getMove();
         update(nextMove);
     }

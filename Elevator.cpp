@@ -4,8 +4,10 @@
  * Elevator.cpp
  * Project UID 848fee0125dbb5eb53ed294f20dbef81
  *
- * <Zihan Li>
+ *  * <#Names#>
+ * Daniel Bao, Evan Stocker, Spencer Hu, Zihan Li
  * <#Uniqnames#>
+ * danbao, zihanl, zianghu, stockere
  *
  * Final Project - Elevators
  */

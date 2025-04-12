@@ -21,10 +21,7 @@ Person::Person(string inputString) : Person() {
     stringstream ss(inputString);
     char junk;
 
-//     turn = inputString.at(0) - '0';
-//     currentFloor = inputString.at(2) - '0';
-//     targetFloor = inputString.at(4) - '0';
-//     angerLevel = inputString.at(6) - '0';
+    //input string
     ss >> turn >> junk >> currentFloor >> junk >> targetFloor >> junk >> angerLevel;
 
 }

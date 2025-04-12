@@ -36,27 +36,51 @@ void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
     // initializes the game with the gameFile
     initGame(gameFile);
 
-    // reads events from game input file
-    string line;
-    Person nextPerson;
+    //default buffer value
+    string pendingLine = "";
 
-   // play until there are no more new lines
-    while (gameFile >> line) {
-        nextPerson = Person(line);
+    while (true) {
 
-        //sets time that person is spawned
-        int spawnTime = nextPerson.getTurn();
+        //checks if file is not in fail state
+        while (!gameFile.fail()) {
+            string line;
 
-        //Checks when turn is finished
-        while (building.getTime() < spawnTime) {
-            building.prettyPrintBuilding(cout);
-            satisfactionIndex.printSatisfaction(cout, false);
-            checkForGameEnd();
+            //read new line unless you can use the buffer value
+            if (!pendingLine.empty()) {
+                line = pendingLine;
+                pendingLine.clear();
+            } else {
+                getline(gameFile, line);
+            }
 
-            Move nextMove = getMove();
-            update(nextMove);
+            //exit loop if line is empty string
+            if (line == "") {
+                break;
+            }
+
+            Person nextPerson(line);
+
+            //get time that person spawns
+            int spawnTime = nextPerson.getTurn();
+
+            //if spawn time greater than building time, save buffer and exit loop
+            if (spawnTime > building.getTime()) {
+                pendingLine = line;
+                break;
+            }
+
+            //spawn person
+            building.spawnPerson(nextPerson);
         }
-        building.spawnPerson(nextPerson);
+
+        // print the state of the Building and check for end of game
+        building.prettyPrintBuilding(cout);
+        satisfactionIndex.printSatisfaction(cout, false);
+        checkForGameEnd();
+
+        // get and apply the next move
+        Move nextMove = getMove();
+        update(nextMove);
     }
 }
 

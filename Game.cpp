@@ -9,7 +9,7 @@
  *
  * Final Project - Elevators
  */
- 
+
 #include <random>
 #include <sstream>
 #include "Game.h"
@@ -62,9 +62,9 @@ void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
 
 // Stub for isValidPickupList for Core
 // You *must* revise this function according to the RME and spec
-bool Game::isValidPickupList(const string& pickupList, 
+bool Game::isValidPickupList(const string& pickupList,
                              const int pickupFloorNum) const {
-   
+
                // 1. Check for duplicate indices
             for (int i = 0; i < pickupList.size(); i++) {
                     for (int j = i+1; j < pickupList.size(); j++) {
@@ -83,8 +83,8 @@ bool Game::isValidPickupList(const string& pickupList,
             }
 
             ////3. The length of the pickupList is less than or equal to the capacity of an elevator
-          
- 
+
+
             if (pickupList.size() > ELEVATOR_CAPACITY ){
                 return false;
 
@@ -99,8 +99,8 @@ bool Game::isValidPickupList(const string& pickupList,
                 if (numPeople <= (pickupList[i] - '0')){
                     return false;
                   }
-                
-              
+
+
     }
         // 5. Check all selected people are going in same direction
         string direction = "up";
@@ -108,7 +108,7 @@ bool Game::isValidPickupList(const string& pickupList,
         if (p1.getTargetFloor() - p1.getCurrentFloor() < 0) {
           direction = "down";
         }
-    
+
 
         if (direction == "up") {
           for (int i = 0; i < pickupList.length(); i++) {
@@ -127,7 +127,7 @@ bool Game::isValidPickupList(const string& pickupList,
             }
           }
         }
-    
+
 
     return true;
 }
@@ -150,7 +150,7 @@ bool Game::performMove(Move& move) const
     {
 
         Elevator taggedElevator = building.getElevatorById(move.getElevatorId());
-        Floor taggedFloor = 
+        Floor taggedFloor =
                   building.getFloorByFloorNum(taggedElevator.getCurrentFloor());
 
         if (taggedFloor.getNumPeople() > 0)
@@ -286,7 +286,7 @@ void Game::printSatisfactionIndex() const
 
 void Game::getPeopleToPickup(Move& move) const
 {
-    int currentFloorNum = 
+    int currentFloorNum =
                building.getElevatorById(move.getElevatorId()).getCurrentFloor();
     Floor currentFloor = building.getFloorByFloorNum(currentFloorNum);
 
@@ -421,7 +421,7 @@ void Game::initGame(ifstream& loadFile)
         building.setElevator(elvState, i);
         i++;
     }
-    
+
     if (!loadFile.fail()) {
         cout << "Loaded!" << endl << endl;
     }

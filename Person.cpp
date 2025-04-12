@@ -34,7 +34,7 @@ bool Person::tick(int currentTime) {
         angerLevel++;
     }
 
-    if (angerLevel == MAX_ANGER) {
+    if (angerLevel >= MAX_ANGER) {
         return true;
     }
     return false;

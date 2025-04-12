@@ -47,6 +47,9 @@ void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
         //sets time that person is spawned
         int spawnTime = nextPerson.getTurn();
 
+
+
+
         //Checks when turn is finished
         while (building.getTime() < spawnTime) {
             building.prettyPrintBuilding(cout);
@@ -59,6 +62,61 @@ void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
         building.spawnPerson(nextPerson);
     }
 }
+
+
+
+// FIXED VERSION (as comments):
+//void Game::playGame(bool isAIModeIn, ifstream& gameFile) {
+    //if (!gameFile.is_open()) {
+   //     exit(1);
+  //  }
+
+    // AI mode
+   // isAIMode = isAIModeIn;
+   //printGameStartPrompt();
+   // initGame(gameFile);
+
+    // variables to use
+    //int currentTime, currentFloor, targetFloor, angerLevel;
+   // bool isFirstIteration = 1;
+    //int spawnTime;
+   // char delimiter;
+   // bool isGameEnd = 0;
+
+    //while (true) {
+       // currentTime = building.getTime();
+      //  if (isFirstIteration) {
+         //   gameFile >> spawnTime >> delimiter >> currentFloor >> delimiter >> targetFloor >> delimiter >> angerLevel;
+        //    isFirstIteration = 0;
+      //  }
+        
+       // while (spawnTime <= currentTime && !isGameEnd) {
+       //     if (currentFloor != targetFloor) {
+         //       std::stringstream personData;
+            //    personData << spawnTime << "f" << currentFloor << "t" << targetFloor << "a" << angerLevel;
+            //    Person newPerson(personData.str());
+             //   building.spawnPerson(newPerson);
+         //   }
+          //  if (gameFile >> spawnTime >> delimiter >> currentFloor >> delimiter >> targetFloor >> delimiter >> angerLevel) {
+          //      continue;
+        //    } else {
+          //      isGameEnd = 1;
+          //  }
+       // }
+
+        //building.prettyPrintBuilding(cout);
+       // satisfactionIndex.printSatisfaction(cout, false);
+       // checkForGameEnd();
+
+       // Move nextMove = getMove();
+       // update(nextMove);
+   // }
+//}
+
+
+
+
+
 
 // Stub for isValidPickupList for Core
 // You *must* revise this function according to the RME and spec
